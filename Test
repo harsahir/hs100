@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+# author: Iman Kamyabizadeh
+# quiz No: 4
+# summer 2024
+
+# ProductStock class to manage the stock of products
+
+class ProductStock:
+    # Initialize the class with name and stock attributes
+    def __init__(self, name, stock):
+        self.name = name
+        self.stock = stock
+
+    # Method to handle the sale of the product
+    def make_sale(self, amt):
+        self.stock -= amt
+        print(f'You take {amt} down, and pass it around')
+
+    # Operator overloading to use the subtraction operator for sales
+    def __sub__(self, amt):
+        self.make_sale(amt)
+        return self
+
+    # String representation for the class to use in print statements
+    def __str__(self):
+        return f'{self.stock} bottles of {self.name} on the wall, {self.stock} bottles of {self.name}'
+
+    # Representation method for debugging and interactive sessions
+    def __repr__(self):
+        return f'{self.name} {self.stock}x'
+
+    # Method to check if the product is in stock
+    def get_in_stock(self):
+        return self.stock > 0
+
+    # Property to access in_stock method as an attribute
+    in_stock = property(get_in_stock)
+
+# Test the ProductStock class
+if __name__ == "__main__":
+    s1 = ProductStock('root beer', 100)
+    s1 - 1
+    s1 - 4
+    print(s1.stock)  # 95
+    print(s1.name)   # 'root beer'
+    print(s1)        # 95 bottles of root beer on the wall, 95 bottles of root beer
+    print(s1.in_stock)  # True
+    s1 - 95
+    print(s1.in_stock)  # False
