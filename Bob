@@ -1,0 +1,18 @@
+class CashRegister:
+    def __init__(self, balance, owner):
+        self.balance = balance
+        self.owner = owner
+        self.transactions = []
+
+    def transaction(self, amt):
+        self.transactions.append(amt)
+        self.balance = sum(self.transactions)
+
+    def __str__(self):
+        return f"Today's balance:\n$ {self.balance:.2f}"
+
+    def __lt__(self, amt):
+        return self.balance < amt
+
+    def __gt__(self, amt):
+        return self.balance > amt
