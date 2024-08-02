@@ -1,0 +1,111 @@
+Sure, here is a detailed explanation followed by the requested playbook:
+
+### Steps to Automate the Task
+
+1. **Ensure the `dev` group exists:**
+   - Check if the `dev` group already exists.
+   - Create the `dev` group if it doesn't exist.
+
+2. **Ensure the `sam` user exists and is added to the `dev` group:**
+   - Check if the `sam` user already exists.
+   - Create the `sam` user and add it to the `dev` group if it doesn't exist.
+
+3. **Install required packages (`python3` and `git`):**
+   - Ensure the `python3` and `git` packages are installed on the machine.
+
+4. **Verify Ansible command is recognized on the control machine:**
+   - Check if Ansible is installed and install it if not present.
+
+5. **Set up inventory file correctly:**
+   - Ensure the inventory file is correctly set up with the target servers.
+
+6. **Verify `sudo` permission:**
+   - Ensure you have `sudo` permission for automation tasks.
+
+7. **Test playbook in a controlled environment:**
+   - Test the playbook in a controlled environment before wide deployment.
+
+8. **Verify SSH access to managed machines:**
+   - Ensure SSH access to the managed machines is not blocked by the firewall or iptables.
+
+### Playbook
+
+Below is an Ansible playbook that accomplishes each task in a separate function (task), following best practices.
+
+```yaml
+---
+- name: Setup dev group, create user sam, and install packages
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Ensure 'dev' group exists
+      ansible.builtin.group:
+        name: dev
+        state: present
+
+    - name: Ensure 'sam' user exists and is added to 'dev' group
+      ansible.builtin.user:
+        name: sam
+        groups: dev
+        state: present
+
+    - name: Install python3 package
+      ansible.builtin.yum:
+        name: python3
+        state: present
+
+    - name: Install git package
+      ansible.builtin.yum:
+        name: git
+        state: present
+```
+
+### Additional Tasks on the Control Machine
+
+1. **Verify Ansible Installation:**
+
+   ```bash
+   # Check if Ansible is installed
+   ansible --version
+
+   # If Ansible is not installed, install it using the following command
+   sudo yum install ansible -y
+   ```
+
+2. **Setup Inventory File:**
+
+   Create an inventory file (`inventory.ini`) with the target servers:
+
+   ```ini
+   [all]
+   server1 ansible_host=192.168.1.101 ansible_user=root
+   server2 ansible_host=192.168.1.102 ansible_user=root
+   ```
+
+3. **Verify SSH Access:**
+
+   Ensure you have SSH access to the managed machines:
+
+   ```bash
+   ssh root@192.168.1.101
+   ssh root@192.168.1.102
+   ```
+
+### Verification
+
+Before wide deployment, test the playbook in a controlled environment:
+
+1. **Run the Playbook:**
+
+   ```bash
+   ansible-playbook -i inventory.ini playbook.yml
+   ```
+
+2. **Verify the Tasks:**
+
+   - Check if the `dev` group is created.
+   - Check if the `sam` user is created and added to the `dev` group.
+   - Verify the installation of `python3` and `git` packages.
+
+By following these steps and using the provided playbook, you can automate the required tasks across your CentOS machines efficiently.
