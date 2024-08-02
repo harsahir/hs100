@@ -1,0 +1,112 @@
+To automate the tasks on each CentOS machine, you can use Ansible, which is a powerful tool for automating configuration management, application deployment, and task automation. Here's how you can achieve the requirements:
+
+### Steps to Automate the Task
+
+1. **Create a secondary group called `dev`:**
+   - Ensure the `dev` group does not already exist.
+   - Create the `dev` group if it doesn't exist.
+
+2. **Create a new user called `sam`:**
+   - Ensure the `sam` user does not already exist.
+   - Create the `sam` user and add it to the `dev` group.
+
+3. **Install the `python` and `git` packages:**
+   - Ensure that the `python` and `git` packages are installed on the machine.
+
+### Playbook
+
+Below is an Ansible playbook that accomplishes each task in a separate function (task), following best practices.
+
+```yaml
+---
+- name: Configure CentOS machines
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Ensure 'dev' group exists
+      ansible.builtin.group:
+        name: dev
+        state: present
+
+    - name: Ensure 'sam' user exists and is added to 'dev' group
+      ansible.builtin.user:
+        name: sam
+        groups: dev
+        state: present
+
+    - name: Install python package
+      ansible.builtin.yum:
+        name: python
+        state: present
+
+    - name: Install git package
+      ansible.builtin.yum:
+        name: git
+        state: present
+```
+
+### Documentation and Commands
+
+#### Ensuring Group Exists
+**Ansible Group Module:**
+
+- **Documentation:** [Ansible Group Module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/group_module.html)
+- **Command:**
+  ```yaml
+  - name: Ensure 'dev' group exists
+    ansible.builtin.group:
+      name: dev
+      state: present
+  ```
+
+#### Ensuring User Exists and Adding to Group
+**Ansible User Module:**
+
+- **Documentation:** [Ansible User Module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html)
+- **Command:**
+  ```yaml
+  - name: Ensure 'sam' user exists and is added to 'dev' group
+    ansible.builtin.user:
+      name: sam
+      groups: dev
+      state: present
+  ```
+
+#### Installing Packages
+**Ansible Yum Module:**
+
+- **Documentation:** [Ansible Yum Module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/yum_module.html)
+- **Command:**
+  ```yaml
+  - name: Install python package
+    ansible.builtin.yum:
+      name: python
+      state: present
+  ```
+
+  ```yaml
+  - name: Install git package
+    ansible.builtin.yum:
+      name: git
+      state: present
+  ```
+
+### Screenshots of Documentation
+
+Since attaching screenshots is not feasible here, I have provided direct links to the Ansible documentation for each module used:
+
+- [Ansible Group Module Documentation](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/group_module.html)
+- [Ansible User Module Documentation](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html)
+- [Ansible Yum Module Documentation](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/yum_module.html)
+
+### Research Requirements
+
+To complete this task, you may need to research the following:
+
+1. **Ansible installation and configuration:** Ensure Ansible is installed and properly configured on your control machine.
+2. **Setting up SSH keys for Ansible:** To automate tasks on remote machines, SSH keys need to be set up for passwordless authentication.
+3. **Creating an inventory file:** Define the hosts you want to manage with Ansible in an inventory file.
+4. **Running the playbook:** Use the `ansible-playbook` command to execute the playbook.
+
+If you encounter any specific issues, refer to the official Ansible documentation or community resources for guidance.
