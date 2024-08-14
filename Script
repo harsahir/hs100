@@ -1,0 +1,47 @@
+#!/usr/bin/env python3
+"""
+Author: Your Name
+"""
+
+import os
+
+# Function to list all files in the 'finaldir' directory
+def ls_cmd():
+    # os.listdir() gets all files in 'finaldir'
+    # We return this list directly
+    return os.listdir('finaldir')
+
+# Function to count the number of lines in a file
+def count_lines(filename):
+    try:
+        # Open the file and count the lines
+        with open(filename, 'r') as file:
+            return len(file.readlines())
+    except FileNotFoundError:
+        # If the file doesn't exist, return 0 lines
+        return 0
+
+# Main block to run our functions
+if __name__ == "__main__":
+    # Call ls_cmd to get a list of files in 'finaldir'
+    filelst = ls_cmd()
+    
+    # Check if the last file exists in the list and that there's no empty filename
+    testfile = filelst[-1]  # Last file in the list
+    assert testfile in filelst
+    assert '' not in filelst
+
+    # Print each filename in the list to verify
+    for filename in filelst:
+        print(filename)
+
+    # Initialize a counter for the total number of lines
+    total_lines = 0
+
+    # Loop through each file to count lines
+    for filename in filelst:
+        # Use os.path.join to correctly join the directory and filename
+        total_lines += count_lines(os.path.join('finaldir', filename))
+
+    # Print the total number of lines across all files
+    print(f"Total number of lines: {total_lines}")
