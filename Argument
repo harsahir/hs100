@@ -1,0 +1,10 @@
+Argument: included inside of function call
+Local Scope: visible only inside of a function, for example
+KeyError: to a dictionary what an index error is to a list
+Class: a new way of programming requires this structure to organize code. becomes a template of all new things of this type
+Ad Hoc: only once not repeated
+Modulo: gives the remainder of an integer division
+Exception: tells you that your code is about to do something unexpected or wrong
+Function Call: run a named block of code with specific purpose
+Concatenation: use the "+" operator with string
+Method: once an object has been created you can call these with arguments
