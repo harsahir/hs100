@@ -1,0 +1,21 @@
+In the script provided, the methods of the PyTimer class are called in the following order:
+
+__init__ method:
+
+Called when the t1 object is created with t1 = PyTimer(2, 0).
+This initializes the minute and second attributes of t1.
+times_up method:
+
+Called repeatedly within the while loop condition while t1.times_up() != True:.
+This checks if both minute and second are zero, indicating that the timer has finished.
+__sub__ method:
+
+Called by the expression t1 - 1 inside the while loop.
+This attempts to subtract 1 second from the t1 object’s current time.
+display_time method:
+
+Called by the line print(t1.display_time()) inside the while loop.
+This formats the current minute and second values as a string and returns it for printing.
+time.sleep(1) function:
+
+Although not a method of the PyTimer class, this function is called to pause the execution for 1 second before the next iteration of the loop.
