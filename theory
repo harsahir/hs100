@@ -1,0 +1,5 @@
+The line t1 - 1 in the script is intended to use the subtraction operator (-) to decrement the timer by 1 second. In Python, when you use an operator like - with an object, it calls the special method __sub__ defined in the class of that object.
+In this script, the PyTimer class has a __sub__ method defined, so the line t1 - 1 calls the __sub__ method of the PyTimer class. However, there are several issues with the implementation:
+Indentation Error: The line self.second -= int(other) is incorrectly indented, which will cause a syntax error.
+Logic Error: The logic inside the __sub__ method is flawed. It adds 60 to self.second initially, which is not necessary. It should simply subtract the other value from self.second and adjust self.minute accordingly.
+Return Value: The __sub__ method should return a new instance or modify the current instance properly, but it currently doesn't return anything
