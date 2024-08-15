@@ -70,3 +70,16 @@ def __sub__(self, other):
 - **Update Minutes and Seconds**: Convert the total seconds back into minutes and seconds using integer division and modulus operations.
 
 This corrected method ensures that the timer correctly handles the subtraction of any number of seconds, adjusting both minutes and seconds as needed.
+
+What's Wrong:
+In the original method, when you try to subtract a large number of seconds from the timer, it doesn't handle it properly. For example, if you try to subtract 100 seconds but the timer only has 90 seconds left, the logic doesn't know how to deal with that correctly.
+
+How to Fix It:
+Think of Time in Seconds: Instead of dealing with minutes and seconds separately, think of the whole time as just seconds. For example, 1 minute and 30 seconds is really just 90 seconds.
+
+Subtract the Time: Subtract the number of seconds you want from the total seconds.
+
+Convert Back to Minutes and Seconds: After subtracting, turn the total seconds back into minutes and seconds.
+
+The Result:
+This way, no matter how many seconds you subtract, the timer will always show the correct remaining time.
