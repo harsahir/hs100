@@ -1,0 +1,72 @@
+Read the script below and answer the following question.
+
+
+
+#!/usr/bin/env python3
+ 
+import time
+ 
+class PyTimer:
+ 
+    def __init__(self, minute, second):
+        try:
+            self.minute = int(minute)
+            self.second = int(second)
+        except TypeError:
+            print('Please enter a valid time')
+            self.minute = 0
+            self.second = 0
+ 
+    def display_time(self):       
+       return f'{self.minute:02d}:{self.second:02d}'
+ 
+    def __sub__(self, other):
+       self.second += 60       
+        self.second -= int(other)
+        if self.second < 60:
+   self.minute -= 1
+       else:
+            self.second -= 60
+ 
+    def times_up(self):
+        if self.second == 0 and self.minute == 0:
+            return True
+        else:
+            return False
+ 
+if __name__ == "__main__":
+    t1 = PyTimer(2, 0)
+    while t1.times_up() != True:
+      t1 - 1
+        print(t1.display_time())
+        time.sleep(1)
+
+
+The method __sub__() contains a logical error. (think about what happens when subtracting a large number of seconds). Explain the logical error, and how you could fix it.
+
+
+
+
+The `__sub__` method in the `PyTimer` class contains a logical error, particularly when subtracting a large number of seconds. Here's the explanation of the error and how to fix it:
+
+### Logical Error
+The current implementation of the `__sub__` method adds 60 to `self.second` before subtracting the `other` value. This is incorrect because it assumes that the subtraction will always result in a value less than 60, which is not guaranteed. If a large number of seconds is subtracted, this logic will not correctly handle the transition between minutes and seconds.
+
+### How to Fix It
+To fix the logic, the method should handle the subtraction of seconds properly by adjusting both the `minute` and `second` attributes accordingly. Here's a corrected version of the `__sub__` method:
+
+```python
+def __sub__(self, other):
+    total_seconds = self.minute * 60 + self.second - int(other)
+    if total_seconds < 0:
+        total_seconds = 0
+    self.minute = total_seconds // 60
+    self.second = total_seconds % 60
+```
+
+### Explanation
+- **Calculate Total Seconds**: Convert the total time into seconds by multiplying `self.minute` by 60 and adding `self.second`. Then, subtract the `other` value.
+- **Handle Negative Time**: If the result is negative, set `total_seconds` to 0 to avoid negative time values.
+- **Update Minutes and Seconds**: Convert the total seconds back into minutes and seconds using integer division and modulus operations.
+
+This corrected method ensures that the timer correctly handles the subtraction of any number of seconds, adjusting both minutes and seconds as needed.
