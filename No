@@ -1,0 +1,5 @@
+In the provided code, there is no `__str__` method defined. Instead, the `__repr__` method is used.
+
+The `__repr__` method is a special method in Python that is meant to provide an "official" string representation of an object, which can be used to reproduce the object. While `__str__` is typically used to provide a more user-friendly string representation, if `__str__` is not defined, Python will fall back on using `__repr__` when the object is printed or converted to a string.
+
+So, in this case, the code uses `__repr__` instead of `__str__`.
