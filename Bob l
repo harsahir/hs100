@@ -1,0 +1,42 @@
+To create an `__add__` dunder method that allows you to increase the dimensions of a `Box` object by a given number, you need to define the `__add__` method within the `Box` class. This method will be called when you use the `+` operator with a `Box` object and a number.
+
+Here's how you can modify the class:
+
+```python
+class Box:
+    def __init__(self, l, w, d, color=None):
+        self.length = l
+        self.width = w
+        self.depth = d
+        self.color = color
+
+    def get_vol(self):
+        return self.length * self.width * self.depth
+
+    def __mul__(self, multiple):
+        self.length *= multiple
+        self.width *= multiple
+        self.depth *= multiple
+
+    def __repr__(self):
+        return f"{self.length:.2f} x {self.width:.2f} x {self.depth:.2f}"
+
+    def __eq__(self, other):
+        return self.get_vol() <= other
+
+    def __add__(self, number):
+        return Box(self.length + number, self.width + number, self.depth + number)
+```
+
+### Explanation:
+- **`__add__` Method**: This method takes two arguments, `self` and `number`. It creates and returns a new `Box` object with each dimension (length, width, depth) increased by the value of `number`.
+- The original dimensions of the `Box` remain unchanged; a new `Box` object is created with the increased dimensions.
+
+### Example Usage:
+```python
+box = Box(2, 3, 5)
+new_box = box + 1
+print(new_box)  # Output: 3.00 x 4.00 x 6.00
+```
+
+This allows you to use the `+` operator to increase the dimensions of a `Box` by a specific number, and it prints the new dimensions using the `__repr__` method.
