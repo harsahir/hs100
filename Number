@@ -1,0 +1,23 @@
+class Box:
+    def __init__(self, l, w, d, color=None):
+        self.length = l
+        self.width = w
+        self.depth = d
+        self.color = color
+
+    def get_vol(self):
+        return self.length * self.width * self.depth
+
+    def __mul__(self, multiple):
+        self.length *= multiple
+        self.width *= multiple
+        self.depth *= multiple
+
+    def __repr__(self):
+        return f"{self.length:.2f} x {self.width:.2f} x {self.depth:.2f}"
+
+    def __eq__(self, other):
+        return self.get_vol() <= other
+
+    def __add__(self, number):
+        return Box(self.length + number, self.width + number, self.depth + number)
