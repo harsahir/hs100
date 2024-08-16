@@ -1,0 +1,26 @@
+To modify the `Box` class so that it has a `color` attribute with a default value of `None` if the user doesn't specify a color, you'll need to adjust the `__init__` method. Here's the modified `__init__` method:
+
+```python
+class Box:
+    def __init__(self, l, w, d, color=None):
+        self.length = l
+        self.width = w
+        self.depth = d
+        self.color = color
+```
+
+### Explanation:
+- **`color=None`**: This sets the default value of the `color` attribute to `None` if no color is provided when creating an instance of `Box`.
+- The rest of the `__init__` method remains unchanged, initializing `length`, `width`, and `depth` as before.
+
+Now, when creating a `Box`, the user can specify a color or leave it unspecified:
+
+```python
+# Example of specifying a color
+box_with_color = Box(2, 5, 9, color='red')
+
+# Example without specifying a color
+box_without_color = Box(2, 5, 9)
+```
+
+In `box_without_color`, `color` will default to `None`.
